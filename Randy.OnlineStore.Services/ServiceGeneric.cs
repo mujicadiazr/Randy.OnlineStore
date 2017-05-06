@@ -50,5 +50,10 @@ namespace Randy.OnlineStore.Services
             _repository.Remove(entity);
             _repository.Save();
         }
+
+        public void Save()
+        {
+            _repository.Save();
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace Randy.OnlineStore.ServiceInterfaces
         void Modify(T entity);
         void Remove(T entity);
         void Dispose();
+        void Save();
     }
 }

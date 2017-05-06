@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Categories</title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var ulCategories = $('#ulCategories');
+
+            $('#btn').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:52709/api/Categories',
+                    dataType: 'jsonp',
+                    success: function (data) {
+                        ulCategories.empty();
+                        $.each(data, function (index, elem) {
+                            ulCategories.append('<li>' + elem.categoryName + '</li>');
+                        });
+                    }
+                });
+            });
+
+            $('#btnClear').click(function () {
+                ulCategories.empty();
+            });
+        });
+    </script>
+</head>
+<body>
+    <input id="btn" type="button" value="Get Categories" />
+    <input id="btnClear" type="button" value="Clear" />
+    <ul id="ulCategories"></ul>
+</body>
+</html>

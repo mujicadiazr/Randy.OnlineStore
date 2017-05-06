@@ -12,7 +12,21 @@ namespace Randy.OnlineStore.Infrastructure.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DbContext _context = new OnlineStoreEntities();
+        private readonly DbContext _context;
+
+        public Repository()
+        {
+            _context = new OnlineStoreEntities();
+
+            // Load navigation properties explicitly (avoid serialization trouble)
+            _context.Configuration.LazyLoadingEnabled = false;
+
+            // Do NOT enable proxied entities, else serialization fails.
+            _context.Configuration.ProxyCreationEnabled = false;
+
+            // Because Web API will perform validation, we don't need/want EF to do so
+            _context.Configuration.ValidateOnSaveEnabled = false;
+        }
 
         public void Add(T entity)
         {
@@ -54,16 +68,18 @@ namespace Randy.OnlineStore.Infrastructure.Repository
 
         public void Modify(T entity)
         {
+            //First Approach
             if (_context.Entry<T>(entity).State == System.Data.Entity.EntityState.Detached)
                 _context.Set<T>().Attach(entity);
             _context.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
+           
         }
 
         public void Remove(T entity)
         {
-            if (_context.Entry<T>(entity).State == System.Data.Entity.EntityState.Detached)
+            if (_context.Entry(entity).State == System.Data.Entity.EntityState.Detached)
                 _context.Set<T>().Attach(entity);
-            _context.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
+            _context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
         }
 
         public void Save()

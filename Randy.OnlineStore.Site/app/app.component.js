@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var AppComponent = (function () {
     function AppComponent() {
-        this.welcomeMessage = "Welcome to Angular 2 ASP.NET MVC 5 project";
     }
     AppComponent = __decorate([
-        core_1.Component({ selector: "my-app", template: "<h1>{{welcomeMessage}}</h1>" }), 
+        core_1.Component({
+            selector: "my-app",
+            template: "<category></category>",
+        }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
     return AppComponent;

@@ -1,4 +1,3 @@
-C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\obj\Debug\Randy.OnlineStore.WebAPI.csprojResolveAssemblyReference.cache
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\roslyn\csc.exe
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -94,5 +93,8 @@ C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.O
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\System.Web.Http.Owin.xml
+C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\obj\Debug\Randy.OnlineStore.WebAPI.csprojResolveAssemblyReference.cache
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\obj\Debug\Randy.OnlineStore.WebAPI.dll
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\obj\Debug\Randy.OnlineStore.WebAPI.pdb
+C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\WebApiContrib.Formatting.Jsonp.dll
+C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\WebApiContrib.Formatting.Jsonp.pdb

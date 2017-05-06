@@ -7,24 +7,26 @@ using System.Web.Http;
 
 namespace Randy.OnlineStore.WebAPI.Controllers
 {
-    [Authorize]
+    
     public class ValuesController : ApiController
     {
+        List<string> values = new List<string>{ "value1", "value2" };
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return values;
         }
 
         // GET api/values/5
         public string Get(int id)
         {
-            return "value";
+            return values[id];
         }
 
         // POST api/values
         public void Post([FromBody]string value)
         {
+            values.Add(value);
         }
 
         // PUT api/values/5

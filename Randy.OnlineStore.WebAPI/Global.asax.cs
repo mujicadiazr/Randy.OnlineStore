@@ -14,9 +14,6 @@ namespace Randy.OnlineStore.WebAPI
     {
         protected void Application_Start()
         {
-            //Initialize Unity containers
-            IocConfig.InitializeUnityContainer();
-
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

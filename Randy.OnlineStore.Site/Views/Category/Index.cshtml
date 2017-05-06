@@ -32,7 +32,15 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Picture)
+            @*@Html.DisplayFor(modelItem => item.Picture)*@
+            @{ 
+                if (item.Picture != null)
+                {
+                    var base64 = Convert.ToBase64String(item.Picture);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgSrc" alt="Image"/>
+                }
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |

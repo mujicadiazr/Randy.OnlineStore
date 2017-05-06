@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
 using Microsoft.Practices.Unity;
+using System.Web.Http.Dependencies;
 
 namespace Randy.OnlineStore.WebAPI.App_Start
 {
@@ -14,13 +14,24 @@ namespace Randy.OnlineStore.WebAPI.App_Start
             _container = container;
         }
 
+        public IDependencyScope BeginScope()
+        {
+            var child = _container.CreateChildContainer();
+            return new MyDependencyResolver(child);
+        }
+
+        public void Dispose()
+        {
+            _container.Dispose();
+        }
+
         public object GetService(Type serviceType)
         {
             try
             {
                 return _container.Resolve(serviceType);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -32,7 +43,7 @@ namespace Randy.OnlineStore.WebAPI.App_Start
             {
                 return _container.ResolveAll(serviceType);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new List<object>();
             }
