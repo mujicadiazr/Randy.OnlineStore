@@ -148,16 +148,6 @@
     <Property Name="Fax" Type="nvarchar" MaxLength="24" />
     <Property Name="HomePage" Type="ntext" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="Territories">
     <Key>
       <PropertyRef Name="TerritoryID" />
@@ -165,6 +155,14 @@
     <Property Name="TerritoryID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="TerritoryDescription" Type="nchar" MaxLength="50" Nullable="false" />
     <Property Name="RegionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Userame" Type="nvarchar" MaxLength="100" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <Association Name="FK_CustomerCustomerDemo">
     <End Role="CustomerDemographics" Type="Self.CustomerDemographics" Multiplicity="1" />
@@ -335,8 +333,8 @@
     <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Shippers" EntityType="Self.Shippers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Territories" EntityType="Self.Territories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_CustomerCustomerDemo" Association="Self.FK_CustomerCustomerDemo">
       <End Role="CustomerDemographics" EntitySet="CustomerDemographics" />
       <End Role="CustomerCustomerDemo" EntitySet="CustomerCustomerDemo" />

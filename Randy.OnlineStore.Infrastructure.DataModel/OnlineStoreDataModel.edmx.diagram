@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="Randy.OnlineStore.Infrastructure.Data.Region" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Randy.OnlineStore.Infrastructure.Data.Shipper" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Randy.OnlineStore.Infrastructure.Data.Supplier" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Randy.OnlineStore.Infrastructure.Data.sysdiagram" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Randy.OnlineStore.Infrastructure.Data.Territory" Width="1.5" PointX="8" PointY="9.875" IsExpanded="true" />
         <AssociationConnector Association="Randy.OnlineStore.Infrastructure.Data.FK_Products_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="Randy.OnlineStore.Infrastructure.Data.FK_Orders_Customers" ManuallyRouted="false" />
@@ -28,6 +27,7 @@
         <AssociationConnector Association="Randy.OnlineStore.Infrastructure.Data.FK_Territories_Region" ManuallyRouted="false" />
         <AssociationConnector Association="Randy.OnlineStore.Infrastructure.Data.CustomerCustomerDemo" ManuallyRouted="false" />
         <AssociationConnector Association="Randy.OnlineStore.Infrastructure.Data.EmployeeTerritories" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Randy.OnlineStore.Infrastructure.Data.User" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

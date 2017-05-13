@@ -12,7 +12,7 @@ namespace Randy.OnlineStore.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Region 
+    public partial class Region
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Region()

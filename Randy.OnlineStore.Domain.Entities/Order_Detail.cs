@@ -12,7 +12,7 @@ namespace Randy.OnlineStore.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Order_Detail 
+    public partial class Order_Detail
     {
         public int OrderID { get; set; }
         public int ProductID { get; set; }

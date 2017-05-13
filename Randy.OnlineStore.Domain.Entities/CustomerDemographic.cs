@@ -12,7 +12,7 @@ namespace Randy.OnlineStore.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class CustomerDemographic 
+    public partial class CustomerDemographic
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CustomerDemographic()

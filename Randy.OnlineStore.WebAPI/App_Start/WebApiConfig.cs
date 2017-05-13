@@ -13,6 +13,7 @@ using Randy.OnlineStore.Services;
 using Randy.OnlineStore.Domain.Interfaces;
 using Randy.OnlineStore.Infrastructure.Repository;
 using WebApiContrib.Formatting.Jsonp;
+using System.Web.Http.Cors;
 
 namespace Randy.OnlineStore.WebAPI
 {
@@ -25,7 +26,7 @@ namespace Randy.OnlineStore.WebAPI
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-            #region UnityContainerConfiguration
+            #region Unity Container Configuration
             //Unity container stuff
             var container = new UnityContainer();
             //Registering all the stuff
@@ -33,7 +34,7 @@ namespace Randy.OnlineStore.WebAPI
             config.DependencyResolver = new MyDependencyResolver(container);
             #endregion
 
-            #region SerializerConfiguration
+            #region Serializer Configuration
             //Setting up the JSON serializing format
             //and removing the XML serializer            
 
@@ -47,18 +48,33 @@ namespace Randy.OnlineStore.WebAPI
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             #endregion
 
+            #region Web API routes
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+ 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            #endregion
+
+            #region Register HTTPS filter
+            //config.Filters.Add(new RequireHttpsAttribute());
+            #endregion
+
+            #region  For enabling Cross-Origin Resource Sharing  
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             //Jsonp for enabling CORS
-            var jsonpFormatter = new JsonpMediaTypeFormatter(config.Formatters.JsonFormatter);
-            config.Formatters.Insert(0, jsonpFormatter);
+            //var jsonpFormatter = new JsonpMediaTypeFormatter(config.Formatters.JsonFormatter);
+            //config.Formatters.Insert(0, jsonpFormatter);
+            #endregion
+
+            #region Enable Basic Authentication
+            //config.Filters.Add(new BasicAuthenticationAttribute());
+            #endregion
         }
 
         private static void RegisterUnityServices(UnityContainer container)
@@ -75,6 +91,8 @@ namespace Randy.OnlineStore.WebAPI
             container.RegisterType<IServiceGeneric<Shipper>, ServiceGeneric<Shipper>>(new HierarchicalLifetimeManager());
             container.RegisterType<IServiceGeneric<Supplier>, ServiceGeneric<Supplier>>(new HierarchicalLifetimeManager());
             container.RegisterType<IServiceGeneric<Territory>, ServiceGeneric<Territory>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IServiceGeneric<User>, ServiceGeneric<User>>(new HierarchicalLifetimeManager());
+
 
             //Resolving Repositories 
             container.RegisterType<IRepository<Category>, Repository<Category>>(new HierarchicalLifetimeManager());
@@ -88,6 +106,7 @@ namespace Randy.OnlineStore.WebAPI
             container.RegisterType<IRepository<Shipper>, Repository<Shipper>>(new HierarchicalLifetimeManager());
             container.RegisterType<IRepository<Supplier>, Repository<Supplier>>(new HierarchicalLifetimeManager());
             container.RegisterType<IRepository<Territory>, Repository<Territory>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IRepository<User>, Repository<User>>(new HierarchicalLifetimeManager());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Randy.OnlineStore.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee 
+    public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()

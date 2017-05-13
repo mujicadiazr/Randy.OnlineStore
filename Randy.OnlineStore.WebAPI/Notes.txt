@@ -1,0 +1,123 @@
+﻿WebAPI 2 steps:
+=================
+
+1 - Unity container configuration at WebAPIConfig.cs
+----------------------------------------------------
+	var container = new UnityContainer();
+    RegisterUnityServices(container);
+    config.DependencyResolver = new MyDependencyResolver(container);
+
+2 - Serializer configuration at WebAPIConfig.cs
+-------------------------------------------------
+	//Remove a formatter
+    config.Formatters.Remove(config.Formatters.XmlFormatter);
+	//Set JSON Formetter indented
+    config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+	//Set Camel Case style to properties 
+    config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+3 - Enabling CORS (Cross-Origin Resource Sharing)
+-------------------------------------------------
+	- Install the nuget package Microsoft.AspNet.CORS
+	- Enable CORS in general
+		EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+        config.EnableCors(cors);
+	- Enable CORS for specifics Controllers
+		[EnableCorsAttribute("*","*","*")]
+		public class CategoriesController : ApiController
+		//For disable Cors for specific method
+		[DisableCors]
+
+4 - [FromBody] and [FromUri] attributes
+---------------------------------------
+	All [FromUri] params will be gotten from the query string
+	[FromBody] will be gotten serialized in some format like JSON, XML, etc
+
+5 -  How to enable SSL in Visual Studio
+---------------------------------------
+	1 - Go to WebAPI project Properties in the Properties tab
+	2 - Set SSL Enabled in True
+	3 - Open Windows + R / mmc.exe 
+	4 - Go File menu / Add or remove snap-ins
+	5 - Select Certificates / click Add / Select Computer account /Select Local computer
+	6 - Select Finish / then click OK
+	7 - Now you have all Certificates issues in the local computer
+	8 - Go to Personal / Certificates
+	9 - Export this certificate to a folder and import it to Trusted Root Certification Authorities
+
+6 - Redirect from HTTP to HTTPS in ASP.NET WebAPI 2 
+----------------------------------------------------
+	1 - Add a class file and name it RequireHttpsAttribute
+	2 - Make this class extend from AuthorizationFilterAttribute
+	3 - Override the method OnAuthorization with this code:
+		if (actionContext.Request.RequestUri.Scheme != Uri.UriSchemeHttps)
+            {
+                actionContext.Response = actionContext.Request.CreateResponse(System.Net.HttpStatusCode.Found);
+                actionContext.Response.Content = new StringContent("<p>Use HTTPS instead of HTTP</p>");
+
+                UriBuilder uriBuilder = new UriBuilder(actionContext.Request.RequestUri);
+                uriBuilder.Scheme = Uri.UriSchemeHttps;
+                uriBuilder.Port = 44383;
+
+                actionContext.Response.Headers.Location = uriBuilder.Uri;
+            }
+            else
+            {
+                base.OnAuthorization(actionContext);
+            }    
+	4 - Register the filter on Register method at WebApiConfig.cs
+			config.Filters.Add(new RequireHttpsAttribute()); 
+	5 - If you want enable HTTPS only for specific Controller use:
+			[RequireHttps]
+			public class CategoriesController : ApiController   
+
+7 - Basic Authentication in ASP.NET WebAPI 2
+---------------------------------------------
+	1 - Add a class file and name it BasicAuthenticationAttribute
+	2 - Make this class extend from AuthorizationFilterAttribute
+	3 - Override the method OnAuthorization with this code:
+		if (actionContext.Request.Headers.Authorization == null)
+            {
+                actionContext.Response = actionContext.Request.CreateResponse(System.Net.HttpStatusCode.Unauthorized);
+            }
+            else
+            {
+                string authenticationToken = actionContext.Request.Headers.Authorization.Parameter;
+                string decodedAuthenticationToken = Encoding.UTF8.GetString(Convert.FromBase64String(authenticationToken));
+                var array = decodedAuthenticationToken.Split(':');
+                string username = array[0];
+                string password = array[1];
+
+                using (WebAPISecurity security = new WebAPISecurity())
+                {
+                    if (security.Login(username, password))
+                    {
+                        Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username), null);
+                    }
+                    else
+                    {
+                        actionContext.Response = actionContext.Request.CreateResponse(System.Net.HttpStatusCode.Unauthorized);
+                    }
+                }
+            }
+
+	   4 - Create WebAPISecurity class and write within it this code:
+			private IServiceGeneric<User> _service;
+
+			public WebAPISecurity()
+			{
+				_service = new ServiceGeneric<User>(new Repository<User>());
+			}
+
+			public void Dispose()
+			{
+				_service.Dispose();
+			}
+
+			public bool Login(string username, string password)
+			{
+				return _service.All().Any(user => user.Userame.Equals(username, StringComparison.OrdinalIgnoreCase) && user.Password == password);
+			}
+	 
+ 
+	  

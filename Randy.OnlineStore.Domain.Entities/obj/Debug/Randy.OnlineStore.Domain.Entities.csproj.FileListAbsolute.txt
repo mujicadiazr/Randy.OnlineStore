@@ -2,3 +2,4 @@ C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.O
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.Domain.Entities\bin\Debug\Randy.OnlineStore.Domain.Entities.pdb
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.Domain.Entities\obj\Debug\Randy.OnlineStore.Domain.Entities.dll
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.Domain.Entities\obj\Debug\Randy.OnlineStore.Domain.Entities.pdb
+C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.Domain.Entities\obj\Debug\Randy.OnlineStore.Domain.Entities.csprojResolveAssemblyReference.cache

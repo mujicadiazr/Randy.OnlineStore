@@ -5,10 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Randy.OnlineStore.WebAPI.Controllers
 {
+    //For enabling CORS only for this controller
+    //[EnableCorsAttribute("*","*","*")]
+    //For requiring HTTPS for this specific Controller
+    //[RequireHttps]
     public class CategoriesController : ApiController
     {
         IServiceGeneric<Category> _service;
@@ -17,17 +23,32 @@ namespace Randy.OnlineStore.WebAPI.Controllers
             _service = service;
         }
 
+        //For disable CORS for this specific method
+        //[DisableCors]
+        //For apply the HTTPS filter
+        //[RequireHttps]
+        //For use the Basic Authentication Filter
+        [BasicAuthentication]
         public HttpResponseMessage Get(string contain="All")
         {
-            switch (contain.ToLower())
+            string username = Thread.CurrentPrincipal.Identity.Name;
+            string kindOfCategory = "All";
+
+            //If the user is Male then show drinks else show sweets
+            if (username.Equals("male", StringComparison.OrdinalIgnoreCase))
+                kindOfCategory = "drink";
+            else
+                kindOfCategory = "sweet";
+
+            switch (kindOfCategory.ToLower())
             {
                 case "all":
                     return Request.CreateResponse(HttpStatusCode.OK, _service.All());                    
                 default:
-                    var items = _service.All().Where(c => c.Description.Contains(contain.ToLower()));
+                    var items = _service.All().Where(c => c.Description.Contains(kindOfCategory.ToLower()));
                     if (items == null)
                     {
-                        Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category's decription contain " + contain + " not found");
+                        return Request.CreateResponse(HttpStatusCode.BadRequest);
                     }
                     return Request.CreateResponse(HttpStatusCode.OK, items);
             }            

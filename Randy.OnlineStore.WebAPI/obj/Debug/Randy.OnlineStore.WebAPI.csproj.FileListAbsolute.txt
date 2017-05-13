@@ -98,3 +98,6 @@ C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.O
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\obj\Debug\Randy.OnlineStore.WebAPI.pdb
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\WebApiContrib.Formatting.Jsonp.dll
 C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\WebApiContrib.Formatting.Jsonp.pdb
+C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\System.Web.Cors.dll
+C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\System.Web.Http.Cors.dll
+C:\Users\BlancaH\documents\visual studio 2015\Projects\Randy.OnlineStore\Randy.OnlineStore.WebAPI\bin\System.Web.Http.Cors.xml
