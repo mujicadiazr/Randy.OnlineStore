@@ -32,27 +32,33 @@ namespace Randy.OnlineStore.WebAPI.Controllers
         //[BasicAuthentication]
         public HttpResponseMessage Get(string contain="All")
         {
-            string username = Thread.CurrentPrincipal.Identity.Name;
-            string kindOfCategory = "All";
+            //The first approach using Basic Authentication
+            //string username = Thread.CurrentPrincipal.Identity.Name;
+            //string kindOfCategory = "All";
 
-            //If the user is Male then show drinks else show sweets
-            if (username.Equals("male", StringComparison.OrdinalIgnoreCase))
-                kindOfCategory = "drink";
-            else
-                kindOfCategory = "sweet";
+            ////If the user is Male then show drinks else show sweets
+            //if (username.Equals("male", StringComparison.OrdinalIgnoreCase))
+            //    kindOfCategory = "drink";
+            //else
+            //    kindOfCategory = "sweet";
 
-            switch (kindOfCategory.ToLower())
-            {
-                case "all":
-                    return Request.CreateResponse(HttpStatusCode.OK, _service.All());                    
-                default:
-                    var items = _service.All().Where(c => c.Description.Contains(kindOfCategory.ToLower()));
-                    if (items == null)
-                    {
-                        return Request.CreateResponse(HttpStatusCode.BadRequest);
-                    }
-                    return Request.CreateResponse(HttpStatusCode.OK, items);
-            }            
+            //switch (kindOfCategory.ToLower())
+            //{
+            //    case "all":
+            //        return Request.CreateResponse(HttpStatusCode.OK, _service.All());                    
+            //    default:
+            //        var items = _service.All().Where(c => c.Description.Contains(kindOfCategory.ToLower()));
+            //        if (items == null)
+            //        {
+            //            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            //        }
+            //        return Request.CreateResponse(HttpStatusCode.OK, items);
+            //} 
+
+
+            //Using token Authentication
+            return Request.CreateResponse(HttpStatusCode.OK, _service.All());
+
         }
 
         public HttpResponseMessage Get(int id)
