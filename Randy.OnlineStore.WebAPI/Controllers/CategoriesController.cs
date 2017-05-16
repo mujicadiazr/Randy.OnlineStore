@@ -15,6 +15,7 @@ namespace Randy.OnlineStore.WebAPI.Controllers
     //[EnableCorsAttribute("*","*","*")]
     //For requiring HTTPS for this specific Controller
     //[RequireHttps]
+    [Authorize]
     public class CategoriesController : ApiController
     {
         IServiceGeneric<Category> _service;
@@ -28,7 +29,7 @@ namespace Randy.OnlineStore.WebAPI.Controllers
         //For apply the HTTPS filter
         //[RequireHttps]
         //For use the Basic Authentication Filter
-        [BasicAuthentication]
+        //[BasicAuthentication]
         public HttpResponseMessage Get(string contain="All")
         {
             string username = Thread.CurrentPrincipal.Identity.Name;
