@@ -9,15 +9,26 @@
             var ulCategories = $('#ulCategories');
 
             $('#btn').click(function () {
+                var username = $('#txtUsername').val();
+                var password = $('#txtPassword').val();
                 $.ajax({
                     type: 'GET',
                     url: 'api/Categories',
                     dataType: 'json',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa(username + ':' + password)
+                    },
                     success: function (data) {
                         ulCategories.empty();
                         $.each(data, function (index, elem) {
                             ulCategories.append('<li>' + elem.categoryName + '</li>');
                         });
+                    },
+                    complete: function (jqXHR) {
+                        if (jqXHR.status == '401') {
+                            ulCategories.empty();
+                            ulCategories.append('<li style="color: red">' + jqXHR.status + '-' + jqXHR.statusText + '</li>');
+                        }
                     }
                 });
             });
@@ -29,7 +40,10 @@
     </script>
 </head>
 <body>
-    <input id="btn" type="button" value="Get Categories" />
+    Username <input id="txtUsername" type="text"/>
+    Password <input id="txtPassword" type="password" />
+    <br /><br />
+    <input id="btn" type="button" value="Authenticate and Get Categories" />
     <input id="btnClear" type="button" value="Clear" />
     <ul id="ulCategories"></ul>
 </body>
