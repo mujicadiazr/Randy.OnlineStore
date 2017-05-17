@@ -9,6 +9,7 @@
     <div class="col-md-10 col-md-offset-1">
         <div class="well">
             <input type="button" id="btnLoadCategories" class="btn btn-success" value="Load categories" />
+            <input type="button" id="btnLogout" class="btn btn-success pull-right" value="Logout" />
         </div>
 
         <div class="well hidden" id="divData">
@@ -56,7 +57,8 @@
     <script src="Scripts/bootstrap.min.js"></script>
     <script type="text/javascript">      
         $(document).ready(function () {
-            if (sessionStorage.getItem('accessToken') == null) {
+
+            if (localStorage.getItem('accessToken') == null) {
                 window.location.href = 'Login.html';
             }
 
@@ -68,12 +70,17 @@
                 window.location.href = 'Login.html';
             });
 
+            $('#btnLogout').click(function () {
+                localStorage.removeItem('accessToken');
+                window.location.href = 'Login.html';
+            });
+
             $("#btnLoadCategories").click(function () {
                 $.ajax({
                     method: 'GET',
                     url: '/api/categories',
                     headers: {
-                        'Authorization': 'Bearer ' +sessionStorage.getItem('accessToken')
+                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
                     },
                     success: function (data) {
                         $('#divData').removeClass('hidden');
@@ -81,10 +88,14 @@
                         $('#tblBody').empty();
 
                         $.each(data, function (index, elem) {
+                            var image = new Image();
+                            image.src = 'data:image/png;base64,' + elem.picture;
+                            //document.body.appendChild(image);
+
                             var row = $('<tr><td>' + elem.categoryID + '</td><td>'
                                 + elem.categoryName + '</td><td>'
                                 + elem.description + '</td><td>'
-                                + elem.picture + '</td></tr>'); 
+                                + image.outerHTML + '</td></tr>');
 
                             $('#tblBody').append(row);
                         
