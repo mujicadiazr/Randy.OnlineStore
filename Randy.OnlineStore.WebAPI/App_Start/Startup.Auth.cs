@@ -59,11 +59,11 @@ namespace Randy.OnlineStore.WebAPI
             //    appId: "",
             //    appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "559376259586-64s3g09mfd7o8nudv2a614vs2t3nb0q7.apps.googleusercontent.com",
+                ClientSecret = "ArWdsV-U2bKh9cVJRk0XlHB5"
+            });
         }
     }
 }

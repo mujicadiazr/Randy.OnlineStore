@@ -119,5 +119,67 @@
 				return _service.All().Any(user => user.Userame.Equals(username, StringComparison.OrdinalIgnoreCase) && user.Password == password);
 			}
 	 
- 
+ 9 - Google Authentication
+---------------------------------------------
+
+	1 - Register your application with Google : https://console.developers.google.com
+	2 - In Startup.Auth.cs file uncomment Google provider block and include CliendID and ClientSecret that we got from registering the app with Google
+	3 - Include Login with Google button
+		* Set event click as follow
+		$('#GoogleLoginButton').click(function(){
+		    window.location.href = "/api/Account/ExternalLogin?provider=Google&response_type=token&client_id=self&redirect_uri=http%3A%2F%2Flocalhost%3A52709%2FLogin.html&state=RU8YlBoEPF8CxxVvMMzEKax6oj-0FjTkNCg25MsmmHY1";		
+		});
+		NOTE: To get the URL issue a GET request to: 
+			http://localhost:52709/api/Account/ExternalLogins?ReturnUrl=%2F&&generateState=true
+	4 - Modify ValidateClientRedirectUri to redirect to Login.html afer the user is authenticated by Google in ApplicationOAuthProvider.cs file in Providers folder
+	5 - Add a javascript file to scripts folder. Name it GoogleAuthentication and add the following code:
+		function getAccessToken() {
+    	            if (location.hash) {
+        		if (location.hash.split("access_token=")) {
+            		    var accessToken = location.hash.split("access_token=")[1].split("&")[0];
+            	            if (accessToken) {
+                    		isUserRegistered(accessToken);
+            		    }
+            	        }
+    	    	    }
+		}
+
+function isUserRegistered(accessToken) {
+    $.ajax({
+        url: '/api/Account/UserInfo',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'Application/Json',
+            'Authorization': 'Bearer '+accessToken
+        },
+        success: function (response) {
+            if (response.hasRegistered) {
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('userName', response.email);
+                window.location.href = "Data.html";
+            } else {
+                signupExternalUser(accessToken);
+            }
+        }
+        
+    });
+}
+
+function signupExternalUser(accessToken) {
+    $.ajax({
+        url: '/api/Account/RegisterExternal',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'Application/Json',
+            'Authorization': 'Bearer ' + accessToken
+        },
+        success: function (response) {
+            window.location.href = "/api/Account/ExternalLogin?provider=Google&response_type=token&client_id=self&redirect_uri=http%3A%2F%2Flocalhost%3A52709%2FLogin.html&state=RU8YlBoEPF8CxxVvMMzEKax6oj-0FjTkNCg25MsmmHY1";
+        }
+    });
+}
+	 	  
+		
+	6 - In AccountController.cs modify RegisterExternal method to remove RegisterExternalBindingMode parameter and if (!ModeState.isValid()) code block.
+	7 - In Login.html file in the javascript section call getAccessToken function
 	  

@@ -9,6 +9,7 @@
     <div class="col-md-10 col-md-offset-1">
         <div class="well">
             <input type="button" id="btnLoadCategories" class="btn btn-success" value="Load categories" />
+            <span id="spanUsername" class="text-muted"></span>
             <input type="button" id="btnLogout" class="btn btn-success pull-right" value="Logout" />
         </div>
 
@@ -61,6 +62,8 @@
             if (localStorage.getItem('accessToken') == null) {
                 window.location.href = 'Login.html';
             }
+
+            $('#spanUsername').append('Hello, ' + localStorage.getItem('userName'));
 
             $('#linkClose').click(function () {
                 $('#divError').hide('fade');
